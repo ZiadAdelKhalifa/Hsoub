@@ -1,0 +1,40 @@
+Popular Cities Forecast
+01/08/2024
+==============================
++-------------------+------+----------------------+
+|       City        | Temp |      Condition       |
++-------------------+------+----------------------+
+| Water temperature |  20  |   Overcast clouds    |
+|     Amsterdam     |  34  |      Clear sky       |
+|      Antalya      |  11  |   Overcast clouds    |
+|     Auckland      |  19  |      Light rain      |
+|       Bali        |  31  |      Clear sky       |
+|     Barcelona     |  17  |   Overcast clouds    |
+|   Buenos Aires    |  34  |      Clear sky       |
+|       Cairo       |  27  |    Partly cloudy     |
+|      Cancún       |  15  |      Clear sky       |
+|     Cape Town     |  43  |    Broken clouds     |
+|       Dubai       |  30  |    Moderate rain     |
+|       Hanoi       |  31  |      Clear sky       |
+|     Hong Kong     |  25  |      Few clouds      |
+|     Honolulu      |  29  |    Partly cloudy     |
+|    Ibiza Town     |  29  |      Clear sky       |
+|     Istanbul      |  16  |         Haze         |
+|       Lima        |  22  |    Broken clouds     |
+|      London       |  27  | Heavy intensity rain |
+|     Marmagao      |  19  |      Clear sky       |
+|       Oslo        |  27  |      Few clouds      |
+|       Paris       |  30  |    Broken clouds     |
+|      Phuket       |  29  |      Clear sky       |
+|      Rhodes       |  20  |      Few clouds      |
+|  Rio de Janeiro   |  34  |      Clear sky       |
+|       Rome        |  32  |      Few clouds      |
+|       Seoul       |  37  |      Clear sky       |
+|  Sharm el Sheikh  |  31  |    Partly cloudy     |
+|     Singapore     |  12  |      Few clouds      |
+|      Sydney       |  27  |    Broken clouds     |
+|     Tenerife      |  29  |    Broken clouds     |
+|       Tokyo       |  21  |      Clear sky       |
+|      Toronto      |  29  |      Clear sky       |
+|      Venice       |  25  |    Broken clouds     |
++-------------------+------+----------------------+
