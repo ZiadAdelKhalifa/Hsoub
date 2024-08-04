@@ -1,0 +1,60 @@
+#inner join (the default way that mysql uses)
+
+/*
+select film.film_id,film.title,language.name 
+from film join language on 
+film.language_id=language.language_id
+*/
+
+
+#outer join
+
+#left outer join
+#language is the left table as it is before word JOIN
+#the result will be the whole values in table language with the intercestion between language[english] and film TABLE
+
+/*
+select film.film_id,film.title,language.name 
+from language left outer join film 
+on language.language_id=film.language_id
+*/
+
+
+
+
+#right join the left table is customer and the right table is addresses
+#we want to show all the addresses even there is no customer for it 
+/*
+select customer.first_name,address.address,address.postal_code
+from customer right outer join address 
+on customer.address_id=address.address_id
+*/
+
+
+
+#extract candian customers from the TABLE
+/*
+select customer.first_name,customer.last_name,customer.email,country.country  from customer 
+join address on customer.address_id = address.address_id
+join city on address.city_id = city.city_id
+join country on city.country_id=country.country_id
+where country ='Canada'
+*/
+
+
+
+#extract family movies
+/*
+select film.title ,category.name from film 
+join film_category on film.film_id = film_category.film_id
+join category on film_category.category_id=category.category_id
+WHERE name ='Family' 
+*/
+
+#extract films names and number of copies
+/*
+SELECT film.title, COUNT(inventory.film_id) AS num_copies
+FROM inventory
+JOIN film ON inventory.film_id = film.film_id
+GROUP BY film.title;
+*/

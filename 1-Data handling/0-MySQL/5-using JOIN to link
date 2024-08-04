@@ -1,0 +1,42 @@
+#steps to use join 
+#find the common column in the two tables
+#after on we link the common columnin the two tables
+#after join we link second table with first TABLE
+
+#SELECT film.film_id 'Film', film.title 'title', language.name 'Language' FROM film JOIN language ON film.language_id = language.language_id;
+
+#name of the category in table category with related to table film_category in column category_id 
+#and table film_category related to table film in column film_id 
+#so i will link between table film and film_category using column film_id and link between table film_category and category using column category_id
+/*
+SELECT 
+    category.name AS category, 
+    language.name AS language, 
+    film.title 
+FROM 
+    film 
+JOIN 
+    film_category ON film.film_id = film_category.film_id
+JOIN 
+    category ON category.category_id = film_category.category_id
+JOIN 
+    language  ON film.language_id = language.language_id;
+*/
+
+
+#first he linked between the film id in table film and film category the use this link to link between table film and table category
+/*
+select film.film_id,film.title ,category.name from film
+JOIN film_category on film.film_id =film_category.film_id
+JOIN category on film_category.category_id=category.category_id
+
+*/
+
+#show first and last name and the email and the address of in tables (custumer /address) 
+#select customer.first_name ,customer.last_name ,customer.email,address.address from customer  join address on customer.address_id = address.address_id
+
+#then add the city for the showing
+#first i link between table customer then table address with column address_id then i linked between table address and table city using column city_id
+select customer.first_name ,customer.last_name ,customer.email,address.address ,city.city from customer 
+join address on customer.address_id = address.address_id
+join city on address.city_id = city.city_id

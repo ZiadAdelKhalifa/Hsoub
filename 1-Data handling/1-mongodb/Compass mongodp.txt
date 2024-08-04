@@ -1,0 +1,297 @@
+1-[creating and adding data making some operation in [mongodb compass ]
+
+this commands in MONGOSH[Compass shell]
+[create database]:use companydb
+[create collection]:db.createCollection('employees')
+[show the dp]: show dbs
+
+
+-------------------------------------------------
+
+
+[insert one row of data in employee collection]:db.employees.insertOne({
+_id:1,
+"first_name":"ziad",
+"second_name":"Adel",
+"email":"ziad@yahoo.com",
+"age":22,
+"skills":["reading","writing","swimming"]})
+
+[inset mant items of data]:db.employees.insertMany([{
+_id:3,
+"first_name":"nada",
+"second_name":"Adel",
+"email":"nada@yahoo.com",
+"age":22,
+"skills":["reading","writing","swimming"]},{
+_id:4,
+"first_name":"ahmed",
+"second_name":"Adel",
+"email":"hmed@yahoo.com",
+"age":28,
+"skills":["reading","writing","swimming"]}])
+
+-------------------------------------------------------------------------
+
+
+[find the values]:db.employees.find()
+
+[specific the search]:db.employees.find({'first_name':'ahmed'})
+db.employees.find({skills:'reading'})
+
+[update ]:
+1-updateOne:db.employees.updateOne({'first_name':'ahmed'},{ $set:{'email':'zoz@yahoo.com'}})
+2-updateOne:db.employees.updateMany({'skills':'reading'},{ $set:{'sallary':'20000'}})
+3-replaceOne:db.employees.replaceOne({'first_name':'alaa'},{'first_name':'lol','last_name':'dola','age':33})
+
+
+[delete]:db.employees.deleteOne({'first_name':'ziad'})
+db.employees.deleteMany({'skills':'reading'})
+db.employees.deleteMany({})#will delete all the items
+
+
+
+
+---------------------------------------------------------------------------
+----------------------*****************************------------------------
+---------------------------------------------------------------------------
+
+
+
+
+2- [mongodb Operators]
+[link to review]:https://www.mongodb.com/docs/manual/reference/operator/#std-label-operator-ref-landing
+
+we can use filter bar or the shell
+
+A-in case using shell
+use airbnb
+example[db.airbnb_collection.find({bedrooms:4})]
+
+
+B-using filter bar
+
+[after connecting the data] in the filter bar
+
+{'languages':'English'}
+
+{bedrooms:4}
+
+{'runtime':{$eq:122}}#find runtime when equal 122
+{'runtime':{$ne:122}}#find runtime when not eqal 122
+{'runtime':{$gt:122}} #find runtime when greater than 122
+
+#find result in specific range 
+{year :{$in :[2000,1914]}}
+#find result not in range
+{year :{$nin :[2000,1914]}}
+
+
+#using and
+{$and :[{year :{$nin :[2000,1914]}},{'runtime':{$eq:122}}]}
+
+{
+$and:[
+	{$or:[{price:{$gt:300}},{price:{$lt:300}}]},
+	{$or:[{bedrooms:10},{bedrooms:9}]},
+
+]
+}
+
+#ensure that it is exist first then the cindition of grat than 122 
+{'runtime':{$exists : true ,$gt:122}}
+
+{security_deposit:{$exists:true,$gt:200}}
+
+#we can use regular expression in search
+
+{
+  $and: [
+    { "address.street": { $regex: /^New York/ } },
+    { "address.government_area": { $regex: /^East/ } }
+  ]
+}
+---------------------------------------------------------------------------
+----------------------*****************************------------------------
+---------------------------------------------------------------------------
+
+#[Aggregatin function]
+
+match function:
+
+db.data_movies.aggregate({$match:{'countries':'USA'}})
+
+db.airbnb_collection.aggregate{$match:{'address.country':'Portugal'}}
+
+
+
+#to show specific items in the table
+
+db.data_movies.aggregate([
+    { $match: { 'countries': 'USA' } },
+    { 
+        $project: {
+            id: 0,
+            genres: 1,
+            cast: 1,
+            title: 1,
+	    
+        }
+    }
+])
+
+----------
+using the aggregation in compass to be easy
+
+in the filteration we use many stages like many filters :
+for example first one match second one show specific items third ond using group 
+
+
+match{
+'address.country':'Portugal'
+}
+
+project{
+  _id:0,
+  name:1,
+  description:1,
+  'address.country':1,
+  'address.street':1,
+  price:1
+}
+
+group{
+  _id: '$price',
+  total_listings: {
+    $count: {}
+  }
+}
+
+out
+'outresults'
+
+then press run
+
+-----------------------
+-----------------------
+example in airbnb aggregation[we want to know number of beds and minmum number of these numbers and sort the result depend on price using stages
+
+group{
+  _id: "$beds",
+  minimum_price_per_beds: {
+    $min: "$price"
+  }
+}
+
+sort{
+  minimum_price_per_beds: 1
+}
+
+out
+'min_price_per_beds'
+
+
+
+
+------------
+get the average score in the items that has amenities['Pool','Air conditioning','Wifi']
+
+
+match
+{
+ 	amenities:{$in:['Pool','Air conditioning','Wifi']}
+}
+
+project
+{
+  scores:{
+	   $objectToArray:'$review_scores'
+         }
+}
+
+for here we find the items that has in amenities['Pool','Air conditioning','Wifi'] and take the scores of these items and convert it to array
+
+
+unwind:separate the metrix and make single file for each value
+
+{
+  path: '$scores',
+  
+}
+
+group
+{
+  _id: "$scores.k",
+  average_score: {
+    $avg: "$scores.v"
+  }
+}
+
+out
+
+'avg_score' 
+
+
+-----------
+
+#find near points
+
+geonear
+
+/**
+ * near: The point to search near.
+ * distanceField: The calculated distance.
+ * maxDistance: The maximum distance, in meters, documents can be before being excluded from results.
+ * query: Limits results that match the query that i will add
+ * includeLocs: Optional. Labels and includes the point used to match the document.
+ * num: Optional. The maximum number of documents to return.
+ * spherical: Defaults to false. Specifies whether to use spherical geometry.
+ */
+{
+  near: { type: 'Point', coordinates: [-157.83919,21.28634] },
+  distanceField: 'distance.calculated',
+  maxDistance: 500,
+  query: {},
+  includeLocs:'distance.location',
+  spherical: true
+}
+
+limit
+
+5
+
+-----------------
+#make suggestion for the user depend on reviews he made
+
+match
+
+{
+	"reviews.reviewer_id":'47616302'
+}
+
+unwind
+
+{
+  path:'$reviews'
+}
+
+graphlookup
+
+{
+  from: 'listing_reviews',
+  startWith: "$reviews.reviewer_id",
+  connectFromField: 'reviews.reviewer_id',
+  connectToField: 'reviews.reviewer_id',
+  as: 'reviewed_listhing',
+  maxDepth: 1,
+  depthField: 'depth',
+  restrictSearchWithMatch: {'reviews.reviewer_id':{$ne:'47616302'}}#to remove the id of the main user
+}
+
+project
+
+{
+  _id:0,
+  'listing':'$_id',
+  url:'$listing_url'
+}

@@ -1,0 +1,40 @@
+#left show the first number of letters from the left 
+SELECT title,left(description,50) from film ; 
+
+#right show the first number of letters from the right 
+SELECT right(payment_date,8)from payment ; 
+
+#subscription show the specic part of a text 
+SELECT title,substr(description,20,50) from film ; 
+
+#length of the text 
+SELECT title,length(description) from film ; 
+
+#trim delete from the beginning of the text 
+SELECT title,trim(LEADING 'A ' from description) from film ; 
+
+#position return the position of specific text 
+SELECT title,description,position('Drama' in description) as drama_position from film ; 
+
+#concatenate the text of differnet tables even out of the tables
+
+SELECT customer.customer_id,lower(concat(customer.first_name ,' ',customer.last_name)) full_name ,upper(address.address)
+from customer
+join address on customer.address_id= address.address_id;
+
+#make fun to capetalize the first letter of each word
+select 
+concat(
+    substr(first_name,1,1),
+    lower(substr(first_name,2)),
+    ' ',
+    substr(last_name,1,1),
+    lower(substr(last_name,2))
+    
+)as full_name
+from customer;
+
+
+#replace null values with specific value
+select rental_date ,customer_id,coalesce(return_date,'no return date')
+from rental

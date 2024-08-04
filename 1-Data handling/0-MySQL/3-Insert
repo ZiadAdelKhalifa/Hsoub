@@ -1,0 +1,14 @@
+#inserting values to specific column in a table
+#INSERT INTO language (name) values ('Arabic')
+
+#INSERT INTO actor(first_name,last_name) VALUES ("ZIAD",'ADEL')
+
+#Adding many values to the columns
+#INSERT INTO actor(first_name,last_name) VALUES ("ZIAD",'ADEL'),('ahmed','adel'),('alaa','adel'),('nada','adel')
+
+
+#you can insert values to a table and these values columns in another tables
+#INSERT INTO actor(first_name,last_name) SELECT first_name,last_name from actor_info limit 5
+
+#update specific value in a row in specific column
+#UPDATE actor SET first_name='ZIAD',last_name='ADEL' WHERE actor_id>1 AND actor_id <5

@@ -1,0 +1,56 @@
+select title,replacement_cost from film where replacement_cost>(select avg(replacement_cost) from film);
+
+#get number of times a customer pay
+SELECT first_name,last_name ,(select count(*) FROM payment where customer.customer_id=payment.customer_id) AS 'number of payment'
+FROM customer;
+
+#return the maximum value of a payment
+SELECT first_name,last_name,payment.amount 
+from customer 
+join payment on customer.customer_id=payment.customer_id
+where amount=(select max(payment.amount) from payment);
+
+SELECT film.title ,category.name category ,film.replacement_cost,film.rental_rate
+from film 
+join film_category on film.film_id=film_category.film_id
+join category on film_category.category_id=category.category_id
+where (film.replacement_cost,film.rental_rate) in (SELECT max(replacement_cost),max(rental_rate)from film);
+
+
+###########
+#in case of huge data or tables we determind which one to use where with subqueries or join
+
+#exmample of actores names in specific film
+explain
+SELECT first_name,last_name from actor 
+WHERE actor_id in (SELECT actor_id from film_actor where film_id in (select film_id FROM film WHERE title = 'Alone Trip'));
+
+explain
+select actor.first_name,actor.last_name from actor
+join film_actor on (actor.actor_id = film_actor.actor_id) 
+where film_actor.film_id=17;
+####
+
+
+#Pivoting
+
+SELECT
+    category,
+    SUM(films) AS total_films,
+    SUM(CASE WHEN rating = 'G' THEN films ELSE 0 END) AS 'G',
+    SUM(CASE WHEN rating = 'PG' THEN films ELSE 0 END) AS 'PG',
+    SUM(CASE WHEN rating = 'PG-13' THEN films ELSE 0 END) AS 'PG-13',
+    SUM(CASE WHEN rating = 'R' THEN films ELSE 0 END) AS 'R'
+FROM (
+    SELECT
+        category.name AS category,
+        film.rating,
+        COUNT(film.film_id) AS films
+    FROM category
+    JOIN film_category ON category.category_id = film_category.category_id
+    JOIN film ON film_category.film_id = film.film_id
+    GROUP BY category.name, film.rating
+    ORDER BY films DESC
+) sub
+GROUP BY category
+ORDER BY total_films DESC;

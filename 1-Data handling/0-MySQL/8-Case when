@@ -1,0 +1,26 @@
+/*
+select title,
+case 
+when length >180 then 'long movie'
+when length <180  and length >120 then 'medium movie'
+when length <120 then 'short movie'
+else 'unknown'
+end as 'Movie length'
+from film
+
+*/
+/*
+select case 
+when return_date is null then 'Not returned'
+else'returned' end as return_state,
+count(1) as count
+from rental
+GROUP by return_state
+*/
+
+SELECT film.title, 
+	CASE WHEN rental.return_date IS NOT NULL THEN 'Available' ELSE 'Not Available' END AS availability, 
+        CASE WHEN rental.return_date IS NOT NULL THEN inventory.store_id END AS store 
+FROM film 
+JOIN inventory ON film.film_id = inventory.film_id 
+JOIN rental ON rental.inventory_id = inventory.inventory_id;

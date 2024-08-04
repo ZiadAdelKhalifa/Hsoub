@@ -1,0 +1,76 @@
+#SELECT first_name,last_name FROM actor
+
+#SELECT title,description,special_features FROM film
+
+#show all the columns
+#SELECT * FROM film
+
+#to display specific columns with other names
+#SELECT title as 'TITLE',description as 'DES' FROM film 
+
+
+#limit number of rows you can see 
+#SELECT * FROM payment limit 5
+
+#using where as a condition
+
+#SELECT *from payment WHERE amount=2.99 
+
+#SELECT *from payment WHERE amount != 2.99 
+#SELECT *from payment WHERE amount>2.99 
+#SELECT * from actor WHERE first_name ='john'
+#SELECT * from actor WHERE first_name >'j'
+
+#SELECT title,rental_rate *rental_duration AS 'Rental cost' FROM film
+
+#SELECT first_name ,last_name from actor where first_name like 'ju%'
+
+#select title,description from film_text where description like '%man%'
+
+#SELECT first_name,last_name FROM actor where first_name like 'T_M'
+
+#determind list of specific values
+#SELECT *FROM film WHERE rental_duration IN(3,4,7)
+
+#SELECT * from address where district in ('QLD','Ontario')
+
+#SELECT * from film where length >=60 And length<=90
+#SELECT * from film where length between 60 and 90
+
+#make multi conditions
+
+#SELECT * from film_list where category='Documentary' AND length >=60 And length<=90
+
+#SELECT * from film_list where  length >=60 OR length<=90
+
+#SELECT * from film_list where NOT category='Documentary'
+
+#to show the result in specific order we use order by [asc :ascending,desc:descending]
+#SELECT * from film_list where  length >=60 And length<=90 ORDER BY length ASC
+#SELECT * from film_list where  length >=60 And length<=90 ORDER BY length DESC
+
+
+#orderd by length and in case of similarity values we will order it by titles
+#SELECT * from film_list where  length >=60 And length<=90 ORDER BY length DESC,title
+
+
+#we can call columns by it is numbers
+#SELECT title,description,length from film_list where  length >=60 And length<=90 ORDER BY 3 DESC,1
+
+
+#there is a problem when we use this [#select title,description from film_text where description like '%man%']
+#it can bring a result as a part of a word like woman
+
+#solve the prevoius problem using regular expretions in My SQL
+#select title,description from film_text where description REGEXP '\\bman\\b'
+
+#regexperation is very strong for example extract postal_code consits of 3 numbers
+#SELECT * from address WHERE postal_code regexp '^.{3}$'
+
+
+#SELECT * from film_list where title like '%bTown%' or title like '%Bird%'
+#insted we use regular expretions
+#SELECT * from film_list where title regexp '\\bTown\\b|\\bBird\\b' #\b means starts or ends
+
+#SELECT * from film_list where title NOT REGEXP '\\bTown\\b|\\bBird\\b'
+

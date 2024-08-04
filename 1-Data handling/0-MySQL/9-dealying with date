@@ -1,0 +1,62 @@
+#select curdate()
+
+#select curtime()
+
+#select now()
+SELECT year(now());
+
+SELECT month(now());
+select day(now());
+select hour(now());
+select minute(now());
+select second(now());
+
+#get the day name from date 
+select dayname(return_date) as 'day name' from rental;
+
+#get the values between two dates
+select * from rental where return_date between '2005-06-02' and '2005-06-03';
+
+#adding and subtracting values from date 
+select * from rental WHERE return_date <date_sub('2005-07-01',interval 1 week);
+#will return results less than 2005-06-23
+
+
+select * from rental WHERE return_date <date_add('2005-07-01',interval 14 day);
+
+#get the returned films in specifc time
+#but i will be useless because of time in the date
+SELECT 
+date_format(return_date,'%y-%m-%d-%h-%i'),
+count(1)
+from rental
+GROUP by (1);
+
+SELECT 
+date_format(return_date,'%y-%m-%d'),
+count(1)
+from rental
+GROUP by (1);
+
+SELECT 
+date(return_date),
+count(1)
+from rental
+GROUP by (1);
+
+#when you use month the returned value will be any the month in any year
+SELECT 
+month(return_date),
+count(1)
+from rental
+GROUP by (1);
+
+SELECT 
+day(return_date),
+count(1)
+from rental
+GROUP by (1);
+
+
+#converting the date from zone to another(adding 10 hours to Greenwich time)
+SELECT CONVERT_AZ('2018-01-01 12:00:00','+00:00','+10:00')

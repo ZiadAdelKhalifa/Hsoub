@@ -1,0 +1,18 @@
+#make foreign key which is column (user_id) in table orders and it is a reference in for column ud in table users
+#ALTER TABLE orders ADD FOREIGN KEY (user_id) REFERENCES users(id)
+
+#according to the previous example if we delete a row in table users it will generate orphan values in table orders
+
+
+#delete the foreign key in specific table
+#orders_ibfk_3 :name of the foregin key in table orders
+#ALTER TABLE orders DROP FOREIGN KEY orders_ibfk_3
+
+#if a row in primary key deleted i can make the row related to it using foreign key deleted too by using cascaded in creating the foregin key
+#ALTER TABLE orders ADD FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+
+#Apply any thing happen in primary key in foreign key in case of UPDATE
+#ALTER TABLE orders ADD FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
+
+
+
