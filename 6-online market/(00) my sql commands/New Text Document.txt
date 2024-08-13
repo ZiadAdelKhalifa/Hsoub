@@ -1,0 +1,31 @@
+SELECT ID,post_title FROM wp_posts WHERE post_type ='product'
+
+
+#extract products categories from the two connected tables
+SELECT wp_term_taxonomy.term_id ,wp_terms.name
+from wp_terms
+INNER JOIN wp_term_taxonomy ON wp_terms.term_id=wp_term_taxonomy.term_id
+WHERE wp_term_taxonomy.taxonomy='product_cat'
+
+
+#two important tables relations and taxonomy
+
+SELECT wp_term_relationships.object_id ,wp_term_taxonomy.term_id 
+FROM wp_term_relationships 
+INNER JOIN wp_term_taxonomy ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id
+WHERE wp_term_taxonomy.taxonomy='product_cat' and object_id=56355
+
+
+
+SELECT wp_term_relationships.object_id ,wp_term_taxonomy.term_id ,wp_terms.name
+FROM wp_term_relationships
+INNER JOIN wp_term_taxonomy ON wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id
+INNER JOIN wp_terms ON wp_terms.term_id = wp_term_taxonomy.term_id 
+WHERE  wp_term_taxonomy.taxonomy='product_cat' and object_id=56355;
+
+
+
+SELECT user_id, meta_value FROM wp_usermeta WHERE user_id=1 and meta_key='age'
+
+-------------------
+SELECT country,count(customer_id) as count_by_country FROM wp_wc_customer_lookup GROUP BY country
