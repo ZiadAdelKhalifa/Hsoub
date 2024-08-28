@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+</head>
+<body>
+    <h1>Heart Disease Prediction</h1>
+    <form action="/predict" method="POST">
+        Age: <input type="text" name="age"><br>
+        Sex: <input type="text" name="sex"><br>
+        Chest Pain Type (cp): <input type="text" name="cp"><br>
+        Resting Blood Pressure (trestbps): <input type="text" name="trestbps"><br>
+        Cholesterol (chol): <input type="text" name="chol"><br>
+        Fasting Blood Sugar > 120 mg/dl (fbs): <input type="text" name="fbs"><br>
+        Resting ECG results (restecg): <input type="text" name="restecg"><br>
+        Maximum Heart Rate Achieved (thalach): <input type="text" name="thalach"><br>
+        Exercise Induced Angina (exang): <input type="text" name="exang"><br>
+        ST depression induced by exercise (oldpeak): <input type="text" name="oldpeak"><br>
+        Slope of the peak exercise ST segment (slope): <input type="text" name="slope"><br>
+        Number of major vessels (ca): <input type="text" name="ca"><br>
+        Thalassemia (thal): <input type="text" name="thal"><br>
+        <input type="submit" value="Predict">
+    </form>
+</body>
+</html>
