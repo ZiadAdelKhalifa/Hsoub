@@ -17,4 +17,4 @@ process the input to get suitable output
 3-app :flask code which we use to take inputs from the clients and make some processing in it
 then send it to our model to get the predection
 
-4-template: contain a basic html page called index.html to show some lables to write in and predict button and show the returned predection
+4-templates: contain a basic html page called index.html to show some lables to write in and predict button and show the returned predection
